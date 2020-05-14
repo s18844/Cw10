@@ -218,7 +218,7 @@ namespace Cw10.Models
 
             modelBuilder.Entity<Student>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.IndexNumber);
 
                 entity.Property(e => e.BirthDate).HasColumnType("date");
 

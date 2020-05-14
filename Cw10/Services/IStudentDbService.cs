@@ -9,10 +9,8 @@ namespace Cw10.Services
 {
     public interface IStudentDbService
     {
-        public void EnrollStudent();
-        public void PromotesStudents();
-
         public List<Student> ZwrocenieListyStudentow();
-        public Boolean UsuniecieStudenta(String index);
+        public int UsuniecieStudenta(String index);
+        public int ModyfikacjaStudenta(Student dane);
     }
 }

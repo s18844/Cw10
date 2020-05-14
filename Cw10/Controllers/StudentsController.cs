@@ -29,8 +29,15 @@ namespace Cw10.Controllers
         [HttpGet("{id}")]
         public IActionResult DeleteStudent(String id)
         {
-            Boolean pobrane = _context.UsuniecieStudenta(id);
-            if(pobrane==true)return Ok(); else return NotFound();
+            int pobrane = _context.UsuniecieStudenta(id);
+            if(pobrane>0)return Ok("Usuniety"); else return NotFound("Nie znaleziono");
+        }
+
+        [HttpPost]
+        public IActionResult ModyfikacjaStudenta(Student dane)
+        {
+            int pobrane = _context.ModyfikacjaStudenta(dane);
+            if (pobrane > 0) return Ok("Zmodyfikowany"); else return NotFound("Nie zmodyfikowany");
         }
     }
 }

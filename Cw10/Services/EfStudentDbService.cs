@@ -23,33 +23,51 @@ namespace Cw10.Services
             return _dbContext.Student.ToList();
         }
 
-        public Boolean UsuniecieStudenta(String index)
+        public int UsuniecieStudenta(String index)
         {
-            var pobrany = new Student
-            {
-                IndexNumber = index
-            };
-          
+            int modyfikacje = 0;
+
+
+                var pobrany = new Student
+                {
+                    IndexNumber = index
+                };
+                      _dbContext.Entry(pobrany).State = EntityState.Deleted;
             try
             {
-                _dbContext.Entry(pobrany).State = EntityState.Deleted;
+                modyfikacje = _dbContext.SaveChanges();
             }
-            catch(Exception x)
+            catch (Exception x)
             {
-                return false;
+
+            }       
+            return modyfikacje;     
+
+        }
+
+        public int ModyfikacjaStudenta(Student dane)
+        {
+            int modyfikacje = 0;
+            var pobrany = _dbContext.Student.Where(d => d.IndexNumber == dane.IndexNumber).First();
+
+            pobrany.IndexNumber = dane.IndexNumber;
+            pobrany.FirstName = dane.FirstName;
+            pobrany.LastName = dane.LastName;
+            pobrany.BirthDate = dane.BirthDate;
+            pobrany.IdEnrollment = dane.IdEnrollment;
+            
+            try
+            {
+                modyfikacje = _dbContext.SaveChanges();
             }
+            catch (Exception x)
+            {
 
-            return true;
+            }
+            return modyfikacje;
         }
 
-        public void EnrollStudent()
-        {
-            throw new NotImplementedException();
-        }
 
-        public void PromotesStudents()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
